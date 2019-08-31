@@ -40,9 +40,27 @@
   }
 </style>
 
-<button></button>
+<button>Button</button>
 <script>
+    //bubble = start from nested and work it's way out
+    const divs = document.querySelectorAll('div');
+    const button = document.querySelector('button');
 
+    function logText(e) {
+        e.stopPropagation();//stops when it gets to a certain div
+        console.log(this.classList.value);
+    }
+    //capture runs on the way down rather than on the way up
+    divs.forEach( div => div.addEventListener('click', logText, {
+        capture: true,
+        once: true
+    }));
+
+    button.addEventListener('click', () => {
+        console.log('click!');        
+    }, {
+        once: true
+    });
 </script>
 </body>
 </html>
