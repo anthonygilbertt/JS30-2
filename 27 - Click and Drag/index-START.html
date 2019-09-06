@@ -35,6 +35,39 @@
   </div>
 
 <script>
+    const slider = document.querySelector('.items');
+
+    let isDown = false;
+    let startX;// no values are assigned because that will happen in event
+    let scrollLeft;// no values are assigned because that will happen in event
+
+    slider.addEventListener('mousedown', (e) => {
+        isDown = true;
+        slider.classList.add('active');
+        startX = e.pageX - slider.offsetLeft;
+        // console.log(startX);
+        scrollLeft = slider.scrollLeft;
+    });
+    slider.addEventListener('mouseleave', () => {
+        isDown = false;
+        slider.classList.remove('active');
+    });
+    slider.addEventListener('mouseup', () => {
+        isDown = false;
+        slider.classList.remove('active');
+    });
+    slider.addEventListener('mousemove', (e) => {
+        if(!isDown) return; //stop the fn from running
+        // console.count(isDown);
+        e.preventDefault(); //prevents selecting of text or weird stuff
+
+        /*now we figure out where cursor is when the user moves the mouse*/
+        const x = e.pageX - slider.offsetLeft;
+        const distChange = (x - startX) * 3;
+        slider.scrollLeft = scrollLeft - distChange;
+        // console.log({x, startX});
+        console.log(distChange);
+    });
 </script>
 
   </body>
